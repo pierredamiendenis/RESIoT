@@ -1,6 +1,7 @@
 # Infos projet
 
 IP maquette : 192 168 1 5
+Port 22
 
 Attention se connecter au bon réseau !
 
@@ -22,25 +23,26 @@ Adresse de groupes des retours d'état : sur nos lampe on aura une adresse de gr
 
 On/ Off lampe :
 
-- 0/1/0 --> on/off Lampe 1
-- 0/1/1 --> on/off Lampe 2
-- 0/1/2 --> on/off Lampe 3
-- 0/1/3 --> on off Lampe 4
+- 0/1/1 --> on/off Lampe 1
+- 0/1/2 --> on/off Lampe 2
+- 0/1/3 --> on/off Lampe 3
+- 0/1/4 --> on off Lampe 4
 
 Retrour d'état :
 
-- 0/2/0 --> Retour d'état
 - 0/2/1 --> Retour d'état
 - 0/2/2 --> Retour d'état
 - 0/2/3 --> Retour d'état
+- 0/2/4 --> Retour d'état
 
 Bouton :
 
-- 0/3/0 --> Bouton
 - 0/3/1 --> Bouton
 - 0/3/2 --> Bouton
 - 0/3/3 --> Bouton
+- 0/3/4 --> Bouton
 
 
 FING
 mdp : maquettefing1
+
