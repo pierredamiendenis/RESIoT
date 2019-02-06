@@ -46,3 +46,12 @@ Bouton :
 FING
 mdp : maquettefing1
 
+notre PC -----> DLINK (SSIO FING) ------> Passerelle KNX (IP 192.168.1.5) ------> Reséau KNX
+
+Réseau IP : Pour arriver du PC au routeur, à la passerelle.
+Pour communiquer aves les équipements : utilisation des adresses de groupe (adresse logique KNX).
+
+Objectif 1 :
+Lire la valeur d'une lampe et l'allumer (envoyer boolean true) ou l'éteindre (envoyer false)
+
+
