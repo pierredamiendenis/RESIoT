@@ -1,6 +1,6 @@
 # Infos projet
 
-IP maquette : 192 168 1 5
+IP maquette : 192 168 0 5
 Port 22
 
 Attention se connecter au bon réseau !
@@ -46,7 +46,7 @@ Bouton :
 FING
 mdp : maquettefing1
 
-notre PC -----> DLINK (SSIO FING) ------> Passerelle KNX (IP 192.168.1.5) ------> Reséau KNX
+notre PC -----> DLINK (SSIO FING) ------> Passerelle KNX (IP 192.168.0.5) ------> Reséau KNX
 
 Réseau IP : Pour arriver du PC au routeur, à la passerelle.
 Pour communiquer aves les équipements : utilisation des adresses de groupe (adresse logique KNX).
