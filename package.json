@@ -1,0 +1,23 @@
+{
+  "name": "resiot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "first_try.js",
+  "dependencies": {
+    "knx": "^2.3.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pierredamiendenis/RESIoT.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pierredamiendenis/RESIoT/issues"
+  },
+  "homepage": "https://github.com/pierredamiendenis/RESIoT#readme"
+}
