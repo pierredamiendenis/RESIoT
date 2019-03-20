@@ -37,10 +37,10 @@ var connection = new knx.Connection( {
       event: function(evt, src, dest, value) { 
         //console.log("je suis dans le event" + "event: %s, src: %j, dest: %j, value: %j", evt, src, dest, value);
 
-        console.log("dest : " + dest);
+        //console.log("dest : " + dest);
 
         if(dest == "0/3/1"){
-          console.log("run chenillard" + chenillard_run)
+          //console.log("run chenillard" + chenillard_run)
 
           if(chenillard_run == false){
             start_chenillard(1200);
@@ -55,11 +55,7 @@ var connection = new knx.Connection( {
 
         if(dest == "0/3/2"){
 
-          if(chenillard_order=="endroit"){
-            chenillard_order="envers";
-          } else {
-            chenillard_order="endroit";
-          }
+          change_order();
           
         }
 
@@ -67,11 +63,17 @@ var connection = new knx.Connection( {
 
           clearInterval(intervalle);
 
-          start_chenillard(changespeed());
-          
+          console.log(chenillard_run);
+
+          changespeed().then(function(value){
+            start_chenillard(value);
+          });
+            
         }
 
         if(dest == "0/3/4"){
+
+          disconnect();
           
         }
 
@@ -87,7 +89,9 @@ var connection = new knx.Connection( {
   var indice_chenillard;
   let intervalle;
 
-  function start_chenillard (speed){
+  function start_chenillard (sp){
+
+    console.log("speed : " + sp);
 
     if(indice_chenillard==undefined){
       indice_chenillard=1;
@@ -126,7 +130,8 @@ var connection = new knx.Connection( {
           break;
           
       }
-      console.log(indice_chenillard);
+      
+      //console.log(indice_chenillard);
 
       if(chenillard_order=="endroit"){
 
@@ -147,23 +152,32 @@ var connection = new knx.Connection( {
         }
       }
       
-    }, speed);
+    }, sp);
 
 
   }
 
 
-  function stop_chenillard(){
+  function change_order(){
 
-    console.log("coucou");
-
-    connection.write("0/1/1", 0);
-    connection.write("0/1/2", 0);
-    connection.write("0/1/3", 0);
-    connection.write("0/1/4", 0);
-
+    if(chenillard_order=="endroit"){
+      chenillard_order="envers";
+    } else {
+      chenillard_order="endroit";
+    }
   }
 
+  function disconnect(){
+    connection.Disconnect();
+  }
+
+module.exports = { 
+  API_startandstop : function(){start_chenillard(1200); },
+  API_changespeed : function(){changespeed(); start_chenillard(speed);},
+  API_changeorder : function(){change_order();},
+  API_disconnect : function(){disconnect();}
+
+}
   
   var tabspeed = [1200,1000,800,600];
   var indice_tabspeed = 0;
@@ -171,17 +185,25 @@ var connection = new knx.Connection( {
 
   function changespeed(){
 
-    speed = tabspeed[indice_tabspeed];
+    return new Promise((resolve,reject) => {
 
-    if(indice_tabspeed==3){
-      indice_tabspeed=0;
-    }else{
-      indice_tabspeed++;
-    }
+      console.log("indice speed : " + indice_tabspeed);
 
-    return speed;
+      speed = tabspeed[indice_tabspeed];
+  
+      if(indice_tabspeed==3){
+        indice_tabspeed=0;
+      }else{
+        indice_tabspeed++;
+      }
+
+      resolve(speed);
+
+    });
 
   }
+
+
 
 
 
