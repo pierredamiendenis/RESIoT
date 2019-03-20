@@ -35,7 +35,7 @@ var connection = new knx.Connection( {
       },
       // get notified for all KNX events:
       event: function(evt, src, dest, value) { 
-        //console.log("je suis dans le event" + "event: %s, src: %j, dest: %j, value: %j", evt, src, dest, value);
+        console.log("je suis dans le event" + "event: %s, src: %j, dest: %j, value: %j", evt, src, dest, value);
 
         //console.log("dest : " + dest);
 
@@ -43,11 +43,9 @@ var connection = new knx.Connection( {
           //console.log("run chenillard" + chenillard_run)
 
           if(chenillard_run == false){
-            start_chenillard(1200);
-            chenillard_run = true;
+            start_chenillard();
           } else {
-            clearInterval(intervalle);
-            chenillard_run = false;
+            stop_chenillard();
           }
 
 
@@ -61,11 +59,7 @@ var connection = new knx.Connection( {
 
         if(dest == "0/3/3"){
 
-          clearInterval(intervalle);
-
-          changespeed();
-          start_chenillard(speed);
-          
+            changespeed().then(function(value){console.log(value);start_chenillard(value)});            
         }
 
         if(dest == "0/3/4"){
@@ -86,71 +80,99 @@ var connection = new knx.Connection( {
   var indice_chenillard;
   let intervalle;
 
+  function start_and_stop(){
+    if(chenillard_run == false){
+        start_chenillard(speed);
+      } else {
+        stop_chenillard();
+      }
+  }
+
   function start_chenillard (sp){
 
+    chenillard_run = true;
+
     console.log("speed : " + sp);
+
 
     if(indice_chenillard==undefined){
       indice_chenillard=1;
     }
 
-    intervalle = setInterval(() => {
+    if(sp==undefined){
+        sp=1200;
+        console.log("speed modified : " + sp);
+        speed = 1200;
+        indice_tabspeed = 1;
 
-      switch(indice_chenillard){
-        case 1:
-          connection.write("0/1/1", 1);
-          connection.write("0/1/2", 0);
-          connection.write("0/1/3", 0);
-          connection.write("0/1/4", 0);
-
-          break;
-          
-        case 2:
-          connection.write("0/1/1", 0);
-          connection.write("0/1/2", 1);
-          connection.write("0/1/3", 0);
-          connection.write("0/1/4", 0);
-          break;
-          
-        case 3:
-          connection.write("0/1/1", 0);
-          connection.write("0/1/2", 0);
-          connection.write("0/1/3", 1);
-          connection.write("0/1/4", 0);
-          break;
-          
-        case 4:
-          connection.write("0/1/1", 0);
-          connection.write("0/1/2", 0);
-          connection.write("0/1/3", 0);
-          connection.write("0/1/4", 1);
-          break;
-          
       }
-      
-      //console.log(indice_chenillard);
 
-      if(chenillard_order=="endroit"){
+        intervalle = setInterval(() => {
 
-        if(indice_chenillard==4){
-          indice_chenillard=1;
-        }else{
-          indice_chenillard++;
-        }
+            //console.log(chenillard_run);
+    
+    
+          switch(indice_chenillard){
+            case 1:
+              connection.write("0/1/1", 1);
+              connection.write("0/1/2", 0);
+              connection.write("0/1/3", 0);
+              connection.write("0/1/4", 0);
+    
+              break;
+              
+            case 2:
+              connection.write("0/1/1", 0);
+              connection.write("0/1/2", 1);
+              connection.write("0/1/3", 0);
+              connection.write("0/1/4", 0);
+              break;
+              
+            case 3:
+              connection.write("0/1/1", 0);
+              connection.write("0/1/2", 0);
+              connection.write("0/1/3", 1);
+              connection.write("0/1/4", 0);
+              break;
+              
+            case 4:
+              connection.write("0/1/1", 0);
+              connection.write("0/1/2", 0);
+              connection.write("0/1/3", 0);
+              connection.write("0/1/4", 1);
+              break;
+              
+          }
+          
+          //console.log(indice_chenillard);
+    
+          if(chenillard_order=="endroit"){
+    
+            if(indice_chenillard==4){
+              indice_chenillard=1;
+            }else{
+              indice_chenillard++;
+            }
+    
+          }else {
+    
+            if(indice_chenillard==1){
+              indice_chenillard=4;
+            }else{
+    
+              indice_chenillard--;
+    
+            }
+          }
+          
+        }, sp);
 
-      }else {
+  }
 
-        if(indice_chenillard==1){
-          indice_chenillard=4;
-        }else{
 
-          indice_chenillard--;
-
-        }
-      }
-      
-    }, sp);
-
+  function stop_chenillard(){
+      clearInterval(intervalle);
+      chenillard_run = false;
 
   }
 
@@ -165,12 +187,13 @@ var connection = new knx.Connection( {
   }
 
   function disconnect(){
+    stop_chenillard();
     connection.Disconnect();
   }
 
 module.exports = { 
-  API_startandstop : function(){start_chenillard(1200); },
-  API_changespeed : function(){changespeed(); start_chenillard(speed);},
+  API_startandstop : function(){start_and_stop(); },
+  API_changespeed : function(){changespeed().then(function(value){console.log(value);start_chenillard(value);}) },
   API_changeorder : function(){change_order();},
   API_disconnect : function(){disconnect();}
 
@@ -182,17 +205,31 @@ module.exports = {
 
   function changespeed(){
 
-    console.log("indice speed : " + indice_tabspeed);
+    return new Promise((resolve,reject) => {
 
-    speed = tabspeed[indice_tabspeed];
+      //console.log("indice speed : " + indice_tabspeed);
 
-    if(indice_tabspeed==3){
-      indice_tabspeed=0;
-    }else{
-      indice_tabspeed++;
-    }
+      speed = tabspeed[indice_tabspeed];
+  
+      if(indice_tabspeed==3){
+        indice_tabspeed=0;
+      }else{
+        indice_tabspeed++;
+      }
+
+      stop_chenillard();
+
+      resolve(speed);
+
+    });
 
   }
+
+
+  function connection_knx(){
+    //créer une fonction de démarrage qui permet de faire un clignotement particulier
+  }
+
 
 
 
