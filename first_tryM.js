@@ -63,12 +63,9 @@ var connection = new knx.Connection( {
 
           clearInterval(intervalle);
 
-          console.log(chenillard_run);
-
-          changespeed().then(function(value){
-            start_chenillard(value);
-          });
-            
+          changespeed();
+          start_chenillard(speed);
+          
         }
 
         if(dest == "0/3/4"){
@@ -185,25 +182,17 @@ module.exports = {
 
   function changespeed(){
 
-    return new Promise((resolve,reject) => {
+    console.log("indice speed : " + indice_tabspeed);
 
-      console.log("indice speed : " + indice_tabspeed);
+    speed = tabspeed[indice_tabspeed];
 
-      speed = tabspeed[indice_tabspeed];
-  
-      if(indice_tabspeed==3){
-        indice_tabspeed=0;
-      }else{
-        indice_tabspeed++;
-      }
-
-      resolve(speed);
-
-    });
+    if(indice_tabspeed==3){
+      indice_tabspeed=0;
+    }else{
+      indice_tabspeed++;
+    }
 
   }
-
-
 
 
 
