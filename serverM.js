@@ -31,6 +31,18 @@ app.get('/disconnect', function(req, res) {
 });
 
 
+// Partie socket :
+
+var io = require ('socket.io').listen(server);
+
+//Actions lors de la connexion du client :
+io.sockets.on('connection', function(socket){
+    console.log('Un client est connecté');
+    
+    //Envoie d'un message au client
+    socket.emit('message', 'Vous êtes connecté');
+});
+
 
 
 
