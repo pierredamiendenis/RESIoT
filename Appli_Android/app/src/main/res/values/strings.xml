@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">RESIoT</string>
+    <string name="connexion">Connection</string>
+    <string name="b1">Start/Stop</string>
+    <string name="b2">Speed</string>
+    <string name="b3">Order</string>
+    <string name="b4">Disconnect</string>
+</resources>
