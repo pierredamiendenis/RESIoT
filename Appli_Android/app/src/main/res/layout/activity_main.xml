@@ -51,7 +51,7 @@
 
             <Button
                     android:id="@+id/buttonConnect"
-                    android:layout_width="wrap_content"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:text="@string/connexion"
                     android:layout_centerHorizontal="true"
@@ -61,7 +61,7 @@
             />
 
             <Button
-                    android:id="@+id/buttonStartStop"
+                    android:id="@+id/button1"
                     android:layout_width="130dp"
                     android:layout_height="50dp"
                     android:layout_below="@+id/buttonConnect"
@@ -69,6 +69,39 @@
                     android:layout_marginLeft="30dp"
                     android:background="@color/boutonAction"
                     android:text="@string/b1"
+            />
+
+            <Button
+                    android:id="@+id/button2"
+                    android:layout_width="130dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/button1"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginLeft="30dp"
+                    android:background="@color/boutonAction"
+                    android:text="@string/b2"
+            />
+
+            <Button
+                    android:id="@+id/button3"
+                    android:layout_width="130dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/button2"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginLeft="30dp"
+                    android:background="@color/boutonAction"
+                    android:text="@string/b3"
+            />
+
+            <Button
+                    android:id="@+id/button4"
+                    android:layout_width="130dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/button3"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginLeft="30dp"
+                    android:background="@color/boutonAction"
+                    android:text="@string/b3"
             />
 
 
