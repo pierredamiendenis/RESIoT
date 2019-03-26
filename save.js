@@ -31,11 +31,23 @@ var connection = new knx.Connection( {
         // you also WRITE to an explicit datapoint type, eg. DPT9.001 is temperature Celcius
         //connection.write("2/1/0", 22.5, "DPT9.001");
         // you can also issue a READ request and pass a callback to capture the response
-        connection.read("0/2/1", (src, responsevalue) => { console.log("res " + responsevalue); console.log("src" + src) });
+        //connection.read("0/2/1", (src, responsevalue) => { console.log("res " + responsevalue); console.log("src" + src) });
+
       },
       // get notified for all KNX events:
-      event: function(evt, src, dest, value) { 
-        console.log("je suis dans le event" + "event: %s, src: %j, dest: %j, value: %j", evt, src, dest, value);
+      event: function(evt, src, dest, value) {
+        var d = new Date(); 
+        console.log(d + " || event: %s, src: %j, dest: %j, value: %j", evt, src, dest, value);
+        console.log(JSON.stringify(value));
+        console.log(Array.isArray[JSON.parse(JSON.stringify(value)).data]);
+        console.log(typeof(JSON.parse(JSON.stringify(value)).data));
+
+
+
+        //connection.read("0/2/1", (src, responsevalue) => { console.log("res " + responsevalue); console.log("src" + src) });
+        //connection.read("0/2/2", (src, responsevalue) => { console.log("res " + responsevalue); console.log("src" + src) });
+        //connection.read("0/2/3", (src, responsevalue) => { console.log("res " + responsevalue); console.log("src" + src) });
+        //connection.read("0/2/4", (src, responsevalue) => { console.log("res " + responsevalue); console.log("src" + src) });
 
         //console.log("dest : " + dest);
 
