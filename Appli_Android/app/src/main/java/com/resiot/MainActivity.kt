@@ -7,6 +7,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
 import android.os.AsyncTask.execute
+import android.util.Log
 import okhttp3.*
 
 
@@ -22,18 +23,22 @@ class MainActivity : AppCompatActivity() {
         var btnStartStop = findViewById<Button>(R.id.button1)
         btnStartStop.setOnClickListener(){
 
+
+            Log.d("*****","Appuie sur bouton start")
+
             val client = OkHttpClient()
 
             val formBody = FormBody.Builder()
                 .add("message", "Your message")
                 .build()
             val request = Request.Builder()
-                .url("http://localhost:8080")
+                .url("http://10.0.2.2:8080")
                 .post(formBody)
                 .build()
 
             try {
                 val response = client.newCall(request).execute()
+                Log.d("reponse!!!" , response.toString())
 
                 // Do something with the response.
             } catch (e: IOException) {
