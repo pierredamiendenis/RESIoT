@@ -8,4 +8,5 @@
     <color name="boutonAction">#FFC107</color>
     <color name="boutonLampe">#DC3545</color>
     <color name="blanc">#FFFFFF</color>
+    <color name="noir">#000000</color>
 </resources>

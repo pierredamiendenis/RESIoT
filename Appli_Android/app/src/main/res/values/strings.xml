@@ -5,4 +5,8 @@
     <string name="b2">Speed</string>
     <string name="b3">Order</string>
     <string name="b4">Disconnect</string>
+    <string name="lamp1">Lampe 1</string>
+    <string name="lamp2">Lampe 2</string>
+    <string name="lamp3">Lampe 3</string>
+    <string name="lamp4">Lampe 4</string>
 </resources>
