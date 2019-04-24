@@ -6,7 +6,7 @@ var server = require('http').createServer(app);
 app.use(cors());
 app.use(express.json());
 
-var first_try = require('./save.js')
+var first_try = require('./knx.js')
 app.get('/', function(req, res) {
 
     res.send('Hello World!');
@@ -35,12 +35,31 @@ app.get('/disconnect', function(req, res) {
 });
 
 app.get('/connect', function(req, res) {
-    res.send('test');
     first_try.API_connect();
+    //res.sendStatus(200);
+    res.send("done");
 });
 
 
+var list_socket = [];
 
+// Chargement de socket.io
+var io = require('socket.io').listen(server);
+
+io.sockets.on('connection', function (socket) {
+
+    socket.emit('message', 'Vous êtes bien connecté !');
+
+    // Quand le serveur reçoit un signal de type "message" du client
+    socket.on('message', function (message) {
+        console.log('Un client me parle ! Il me dit : ' + message);
+    });
+});
+
+function emit_io (s){
+  io.sockets.emit(s);
+  console.log("jesuisla",s);
+}
 
 
 

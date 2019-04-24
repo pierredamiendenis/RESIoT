@@ -1,5 +1,8 @@
 var knx = require('knx');
 
+var serverREST = require('./server.js');
+
+import { square } from 'server';
 
 var chenillard_run = false;
 var chenillard_order = "endroit";
@@ -28,7 +31,9 @@ var connection;
         handlers: {
           // wait for connection establishment before sending anything!
           connected: function() {
+            //serverREST.API_serverEmit();
             console.log('Connected');
+
             // WRITE an arbitrary boolean request to a DPT1 group address
 
             // you also WRITE to an explicit datapoint type, eg. DPT9.001 is temperature Celcius
@@ -40,17 +45,18 @@ var connection;
           // get notified for all KNX events:
           event: function(evt, src, dest, value) {
             var d = new Date();
-            //console.log(d + " || event: %s, src: %j, dest: %j, value: %j", evt, src, dest, value);
+            console.log(d + " || event: %s, src: %j, dest: %j, value: %j", evt, src, dest, value);
             //console.log(JSON.stringify(value));
             //console.log(Array.isArray[JSON.parse(JSON.stringify(value)).data]);
             //console.log(typeof(JSON.parse(JSON.stringify(value)).data));
 
+            square();
 
 
-            //connection.read("0/2/1", (src, responsevalue) => { console.log("res " + responsevalue); console.log("src" + src) });
-            //connection.read("0/2/2", (src, responsevalue) => { console.log("res " + responsevalue); console.log("src" + src) });
-            //connection.read("0/2/3", (src, responsevalue) => { console.log("res " + responsevalue); console.log("src" + src) });
-            //connection.read("0/2/4", (src, responsevalue) => { console.log("res " + responsevalue); console.log("src" + src) });
+            connection.read("0/2/1", (src, responsevalue) => { console.log("res " + responsevalue); console.log("src" + src) });
+            connection.read("0/2/2", (src, responsevalue) => { console.log("res " + responsevalue); console.log("src" + src) });
+            connection.read("0/2/3", (src, responsevalue) => { console.log("res " + responsevalue); console.log("src" + src) });
+            connection.read("0/2/4", (src, responsevalue) => { console.log("res " + responsevalue); console.log("src" + src) });
 
             //console.log("dest : " + dest);
 

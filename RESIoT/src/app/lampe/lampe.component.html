@@ -1,12 +1,69 @@
 
-<div>
 
-    <button type="button" class="btn btn-danger btn-circle btn-xl" (click)="onStart()" *ngIf="isOn == false">
-      </button>
 
-      <button type="button" class="btn btn-success btn-circle btn-xl" (click)="onStart()" *ngIf="isOn == true">
-      </button>
+<div class="container mt center-block">
+  <div class="row">
+    <div class="col-sm">
 
+        <div>
+
+            <button type="button" class="btn btn-danger btn-circle btn-xl" (click)="onStart()" *ngIf="isOn_one == false">
+              </button>
+        
+              <button type="button" class="btn btn-success btn-circle btn-xl" (click)="onStart()" *ngIf="isOn_one == true">
+              </button>
+        
+        </div>
+        
+        Lampe 1
+    </div>
+
+    <div class="col-sm">
+
+        <div>
+
+            <button type="button" class="btn btn-danger btn-circle btn-xl" (click)="onStart()" *ngIf="isOn_two == false">
+              </button>
+        
+              <button type="button" class="btn btn-success btn-circle btn-xl" (click)="onStart()" *ngIf="isOn_two == true">
+              </button>
+        
+        </div>
+        
+        Lampe 2
+    </div>
+
+    <div class="col-sm">
+
+        <div>
+
+            <button type="button" class="btn btn-danger btn-circle btn-xl" (click)="onStart()" *ngIf="isOn_three == false">
+              </button>
+        
+              <button type="button" class="btn btn-success btn-circle btn-xl" (click)="onStart()" *ngIf="isOn_three == true">
+              </button>
+        
+        </div>
+        
+        Lampe 3
+    </div>
+
+    <div class="col-sm">
+
+        <div>
+
+            <button type="button" class="btn btn-danger btn-circle btn-xl" (click)="onStart()" *ngIf="isOn_four == false">
+              </button>
+        
+              <button type="button" class="btn btn-success btn-circle btn-xl" (click)="onStart()" *ngIf="isOn_four == true">
+              </button>
+        
+        </div>
+        
+        Lampe 4
+    </div>
+
+  </div>
 </div>
 
-Lampe {{ numero }} 
+

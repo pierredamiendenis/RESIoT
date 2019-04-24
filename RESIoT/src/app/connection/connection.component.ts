@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-connection',
@@ -20,26 +20,35 @@ export class ConnectionComponent implements OnInit {
 
   onStart(){
     //console.log("coucou");
+
+    //const h = new HttpHeaders({responseType: 'text', 'Accept': 'text/html, application/xhtml+xml, */*', 'Content-Type': 'application/x-www-form-urlencoded'});
+
+
+    this.isLoading = true;
     this.httpClient
-    .get<any[]>('http://localhost/connect')
+    .get('http://localhost/connect')
     .subscribe(
       (response) => {
-        console.log(response);
+        this.onTest();
+        console.log("blablal")
+        console.log(response.toString());
+        this.isConnected = true;
       },
       (error) => {
         console.log('Erreur ! : ' + error);
         console.log(JSON.stringify(error));
+        this.isConnected = false;
+        this.isLoading = false;
       }
     );
+
   }
 
   onTest(){
     //console.log("coucou");
-    this.isLoading = true;
 
     setTimeout(
       () => {
-        this.isConnected = true;
         this.isLoading = false;
       }, 4000
     );

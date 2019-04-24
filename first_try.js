@@ -1,6 +1,5 @@
 var knx = require('knx');
 
-
 var chenillard_run = false;
 var chenillard_order = "endroit";
 
@@ -14,7 +13,7 @@ var connection = new knx.Connection( {
     // set the log level for messsages printed on the console. This can be 'error', 'warn', 'info' (default), 'debug', or 'trace'.
     //loglevel: 'info',
     // do not automatically connect, but use connection.Connect() to establish connection
-    //manualConnect: true,  
+    //manualConnect: true,
     // use tunneling with multicast (router) - this is NOT supported by all routers! See README-resilience.md
     //forceTunneling: true,
     // wait at least 10 millisec between each datagram
@@ -34,10 +33,13 @@ var connection = new knx.Connection( {
         connection.read("0/2/1", (src, responsevalue) => { console.log("res " + responsevalue); console.log("src" + src) });
       },
       // get notified for all KNX events:
-      event: function(evt, src, dest, value) { 
+      event: function(evt, src, dest, value) {
         //console.log("je suis dans le event" + "event: %s, src: %j, dest: %j, value: %j", evt, src, dest, value);
 
         //console.log("dest : " + dest);
+
+
+
 
         if(dest == "0/3/1"){
           //console.log("run chenillard" + chenillard_run)
@@ -56,7 +58,7 @@ var connection = new knx.Connection( {
         if(dest == "0/3/2"){
 
           change_order();
-          
+
         }
 
         if(dest == "0/3/3"){
@@ -65,13 +67,13 @@ var connection = new knx.Connection( {
 
           changespeed();
           start_chenillard(speed);
-          
+
         }
 
         if(dest == "0/3/4"){
 
           disconnect();
-          
+
         }
 
       },
@@ -82,7 +84,7 @@ var connection = new knx.Connection( {
     }
   });
 
-  
+
   var indice_chenillard;
   let intervalle;
 
@@ -104,30 +106,30 @@ var connection = new knx.Connection( {
           connection.write("0/1/4", 0);
 
           break;
-          
+
         case 2:
           connection.write("0/1/1", 0);
           connection.write("0/1/2", 1);
           connection.write("0/1/3", 0);
           connection.write("0/1/4", 0);
           break;
-          
+
         case 3:
           connection.write("0/1/1", 0);
           connection.write("0/1/2", 0);
           connection.write("0/1/3", 1);
           connection.write("0/1/4", 0);
           break;
-          
+
         case 4:
           connection.write("0/1/1", 0);
           connection.write("0/1/2", 0);
           connection.write("0/1/3", 0);
           connection.write("0/1/4", 1);
           break;
-          
+
       }
-      
+
       //console.log(indice_chenillard);
 
       if(chenillard_order=="endroit"){
@@ -148,7 +150,7 @@ var connection = new knx.Connection( {
 
         }
       }
-      
+
     }, sp);
 
 
@@ -168,14 +170,15 @@ var connection = new knx.Connection( {
     connection.Disconnect();
   }
 
-module.exports = { 
+module.exports = {
+
   API_startandstop : function(){start_chenillard(1200); },
   API_changespeed : function(){changespeed(); start_chenillard(speed);},
   API_changeorder : function(){change_order();},
   API_disconnect : function(){disconnect();}
 
 }
-  
+
   var tabspeed = [1200,1000,800,600];
   var indice_tabspeed = 0;
   var speed;
@@ -193,11 +196,3 @@ module.exports = {
     }
 
   }
-
-
-
-
-
-
-  
-  

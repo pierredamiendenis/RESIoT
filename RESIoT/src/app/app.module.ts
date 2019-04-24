@@ -13,6 +13,7 @@ import { LampeComponent } from './lampe/lampe.component';
 import { FooterComponent } from './footer/footer.component';
 import { ConnectionComponent } from './connection/connection.component';
 import { LoadingComponent } from './loading/loading.component';
+import { SocketService } from './services/socket.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,9 @@ import { LoadingComponent } from './loading/loading.component';
     BrowserModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    SocketService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
