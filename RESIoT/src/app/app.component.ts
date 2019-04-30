@@ -39,10 +39,16 @@ export class AppComponent {
 
   
 
-  onTest(){
+    onTest(){
 
-    console.log(this.value)
+      console.log(this.value)
+      
+     
+  
+  
+    }
+  
 
-  }
+  
 
 }
