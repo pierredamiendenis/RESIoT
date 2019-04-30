@@ -26,13 +26,11 @@ export class ConnectionComponent implements OnInit {
 
     this.isLoading = true;
     this.httpClient
-    .get('http://localhost/connect')
+    .get('http://localhost:8000/connect')
     .subscribe(
       (response) => {
         this.onTest();
-        console.log("blablal")
-        console.log(response.toString());
-        this.isConnected = true;
+        console.log(response);
       },
       (error) => {
         console.log('Erreur ! : ' + error);
@@ -50,7 +48,9 @@ export class ConnectionComponent implements OnInit {
     setTimeout(
       () => {
         this.isLoading = false;
-      }, 4000
+        this.isConnected = true;
+
+      }, 2000
     );
 
   }
