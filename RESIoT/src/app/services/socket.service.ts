@@ -13,7 +13,7 @@ export class SocketService {
   private socket;
 
   constructor(private http: HttpClient) {
-      this.socket = io('http://localhost:80')
+      this.socket = io('http://localhost:8000')
   }
 
   observer

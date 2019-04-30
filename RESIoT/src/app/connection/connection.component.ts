@@ -29,8 +29,11 @@ export class ConnectionComponent implements OnInit {
     .get('http://localhost:8000/connect')
     .subscribe(
       (response) => {
-        this.onTest();
+        //this.onTest();
         console.log(response);
+        this.isLoading = false;
+        this.isConnected = true;
+
       },
       (error) => {
         console.log('Erreur ! : ' + error);

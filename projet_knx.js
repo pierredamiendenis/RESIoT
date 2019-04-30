@@ -25,16 +25,51 @@ app.post('/specificlampe', function(req, res){
 
   //var numero_lamp = req.body.numerolamp;
 
-  change_specific_lamp(req.body.numerolamp, req.body.state);
+  if(connection == undefined){
+    res.send({state:"error"})
+  } else {
+    change_specific_lamp(req.body.numerolamp, req.body.state);
+    res.send({state:"success"})
+  }
+
 
 });
 
 
 app.post('/specificspeed', function(req, res){
 
-  console.log(req.body.lampspeed);
+  if(connection == undefined){
+    res.send({state:"error"})
+  } else {
+    console.log(req.body.lampspeed);
 
-  change_specific_speed(req.body.lampspeed);
+    change_specific_speed(req.body.lampspeed);
+    res.send({state:"success"})
+  }
+
+});
+
+app.post('/specificorder', function(req, res){
+
+  if(connection == undefined){
+    res.send({state:"error"})
+  } else {
+    console.log(req.body.lamporder);
+
+    if(req.body.lamporder == true){
+
+      var sensspecific = true;
+
+    } else {
+
+      var sensspecific = false;
+
+
+    }
+
+    change_specific_order(sensspecific);
+    res.send({state:"success"})
+  }
 
 });
 
@@ -42,28 +77,69 @@ app.post('/specificspeed', function(req, res){
 app.get('/startandstopchenillard', function(req, res) {
     //res.send('test');
     //console.log("jesuisdansletest");
-    start_and_stop();
-    res.send("ok")
+    //console.log("startabdstop",connection)
+    
+    if(connection == undefined){
+      res.send({state:"error"})
+    } else {
+      start_and_stop();
+      res.send({state:"success"})
+
+    }
+
 });
 
 app.get('/speedchenillard', function(req, res) {
-    res.send('test');
-    changespeed().then(function(value){console.log(value);start_chenillard(value);});
+
+    if(connection == undefined){
+
+      res.send({state:"error"})
+
+    } else{
+
+      res.send({state:"success"})
+
+      changespeed().then(function(value){console.log(value);start_chenillard(value);});
+
+    }
 });
 
 
 app.get('/orderchenillard', function(req, res) {
-    res.send('test');
+
+  if(connection == undefined){
+
+    res.send({state:"error"})
+
+  } else {
+
     change_order();
+    res.send({state:"success"})
+
+
+  }
+
 });
 
 app.get('/disconnect', function(req, res) {
-    res.send('test');
+
+  if(connection == undefined){
+
+    res.send({state:"error"})
+
+  } else {
+
+    res.send({state:"success"})
     disconnect();
+
+  }
+
+
 });
 
 app.get('/connect', function(req, res) {
-    
+      //console.log("connect get",connection)
+
       connect();
 
       console.log("ok");
@@ -150,7 +226,7 @@ server.listen(8000, function(){
 
             var jsontosend = {dst:destination, etat:allumeoueteint};
 
-            console.log(jsontosend)
+            //console.log(jsontosend)
 
             emit_io(JSON.stringify(jsontosend));
 
@@ -207,6 +283,7 @@ server.listen(8000, function(){
   var intervalle;
 
   function start_and_stop(){
+    console.log("chenillard run :",chenillard_run);
     if(chenillard_run == false){
         start_chenillard(speed);
       } else {
@@ -216,7 +293,6 @@ server.listen(8000, function(){
 
   function start_chenillard (sp){
 
-    chenillard_run = true;
 
     console.log("speed : " + sp);
 
@@ -235,9 +311,11 @@ server.listen(8000, function(){
 
       if(chenillard_run==false){
 
+        chenillard_run = true;
+
         intervalle = setInterval(() => {
 
-            //console.log(chenillard_run);
+            console.log("1");
 
 
           switch(indice_chenillard){
@@ -293,7 +371,7 @@ server.listen(8000, function(){
             }
           }
 
-        }, sp);
+        }, speed);
 
       }
 
@@ -311,7 +389,8 @@ server.listen(8000, function(){
 
   function change_order(){
 
-    if(connection == null){
+    if(connection == undefined){
+
 
     } else {
 
@@ -326,7 +405,9 @@ server.listen(8000, function(){
   }
 
   function change_specific_order(specific_order){
-    if(connection == null){
+    if(connection == undefined){
+
+
 
     } else {
 
@@ -337,9 +418,10 @@ server.listen(8000, function(){
 
   function disconnect(){
 
-    if(connection == null){
+    if(connection == undefined){
 
       console.log("veuillez vous connecter")
+
 
     } else {
 
@@ -359,8 +441,9 @@ server.listen(8000, function(){
 
   function changespeed(){
 
-    if(connection == null){
+    if(connection == undefined){
       console.log("veuillez vous connecter")
+
     } else {
 
       return new Promise((resolve,reject) => {
@@ -389,7 +472,7 @@ server.listen(8000, function(){
 
   function change_specific_speed(speed_lamp){
 
-    if(connection == null){
+    if(connection == undefined){
 
       console.log("veuillez vous connecter")
 
@@ -408,7 +491,7 @@ server.listen(8000, function(){
 
   function change_specific_lamp(id, state_lamp) {
 
-    if(connection == null){
+    if(connection == undefined){
 
       console.log("veuillez vous connecter")
 

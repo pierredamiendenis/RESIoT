@@ -18,7 +18,6 @@
 
 
 .footer {
-    position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
@@ -62,3 +61,10 @@
   .text { color: #000000; }
   
   
+.changecursoron{
+  cursor: pointer;
+}
+
+.zoom:hover {
+  transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}

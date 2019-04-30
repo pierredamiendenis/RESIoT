@@ -32,8 +32,7 @@
     <app-lampe></app-lampe>
 </div>
 
-<br>
-<br>
+
 
 <!-- <div>
   <label class="center-block" for="customRange2">Selectionner vitesse</label>
@@ -41,36 +40,85 @@
   <h2></h2>
 </div> -->
 
-<div class="center-block">
+<div class="container mp">
+  <div class="row">
+    <div class="col-sm center-block">
+
+        <div class="center-block">
      
-      <mat-card class="result">
-        <mat-card-content>      
-          <mat-slider
-              class="example-margin"
-              [disabled]="disabled"
-              [invert]="invert"
-              [max]="max"
-              [min]="min"
-              [step]="step"
-              [thumbLabel]="thumbLabel"
-              [tickInterval]="tickInterval"
-              [(ngModel)]="value"
-              [vertical]="vertical">
-          </mat-slider>
-
-          <button mat-stroked-button (click)="onTest()">Speed (ms)</button>
-          
-            <p class="text" style="font-weight:bold">
-             Value : {{value}}
-            </p>
-                   
-
-        </mat-card-content>
-      </mat-card>
-
+            <mat-card class="result" style="height: 100px;">
+              <mat-card-content>      
+                <mat-slider
+                    class="example-margin"
+                    [disabled]="disabled"
+                    [invert]="invert"
+                    [max]="max"
+                    [min]="min"
+                    [step]="step"
+                    [thumbLabel]="thumbLabel"
+                    [tickInterval]="tickInterval"
+                    [(ngModel)]="value"
+                    [vertical]="vertical">
+                </mat-slider>
       
+                <button mat-stroked-button (click)="onSpeed()">Speed (ms)</button>
+                
+                  <p class="text" style="font-weight:bold">
+                   Value : {{value}}
+                  </p>
+                         
+      
+              </mat-card-content>
+            </mat-card>
+      
+            
+      
+      </div>
 
+
+    </div>
+
+    <div class="col-sm center-block">
+        <mat-card class="result" style="height: 100px;">
+            <mat-card-content> 
+              
+              <div>
+                  <img class="changecursoron zoom" style="width: 100%; width: 60px; height: 60px"  src = "/../assets/img/left_on.png" *ngIf="sens == true" (click)="onSens()">
+                  <img class="changecursoron" style="width: 100%; width: 60px; height: 60px"  src = "/../assets/img/left_off.png" *ngIf="sens == false">
+    
+    
+                  <img class="changecursoron zoom" style="width: 100%; width: 60px; height: 60px"  src = "/../assets/img/right_on.png" *ngIf="sens == false" (click)="onSens()">
+                  <img class="changecursoron" style="width: 100%; width: 60px; height: 60px"  src = "/../assets/img/right_off.png" *ngIf="sens == true">
+
+              </div>
+
+              <div *ngIf="sens == true">
+                A l'endroit
+              </div>
+
+              <div *ngIf="sens == false">
+                  A l'envers
+                </div>
+
+              
+
+  
+
+
+        <br>
+
+
+      </mat-card-content>
+    </mat-card>
+
+
+
+    </div>
+
+  </div>
 </div>
+
+
 
 
 

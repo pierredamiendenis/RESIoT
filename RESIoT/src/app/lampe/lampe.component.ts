@@ -114,25 +114,25 @@ export class LampeComponent implements OnInit {
 
     if(id==1){
 
-      this.isOn_one = !this.isOn_one;
+      //this.isOn_one = !this.isOn_one;
 
       var etat = this.isOn_one;
 
     } else if(id==2){
 
-      this.isOn_two = !this.isOn_two;
+      //this.isOn_two = !this.isOn_two;
 
       var etat = this.isOn_two;
 
     } else if(id==3){
 
-      this.isOn_three = !this.isOn_three;
+      //this.isOn_three = !this.isOn_three;
 
       var etat = this.isOn_three;
 
     } else if(id==4){
 
-      this.isOn_four = !this.isOn_four;
+      //this.isOn_four = !this.isOn_four;
 
       var etat = this.isOn_four;
 

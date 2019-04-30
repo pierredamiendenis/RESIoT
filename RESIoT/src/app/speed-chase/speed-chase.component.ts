@@ -16,7 +16,7 @@ export class SpeedChaseComponent implements OnInit {
   onStart(){
     console.log("speed");
     this.httpClient
-    .get<any[]>('http://localhost/speedchenillard')
+    .get<any[]>('http://localhost:8000/speedchenillard')
     .subscribe(
       (response) => {
         console.log(response);

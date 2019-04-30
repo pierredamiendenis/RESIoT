@@ -16,7 +16,10 @@ export class AppComponent {
 
   constructor(private http: HttpClient){}
 
+
   title = 'RESIoT';
+
+  sens = true;
 
   autoTicks = true;
   disabled = false;
@@ -46,6 +49,52 @@ export class AppComponent {
      
   
   
+    }
+
+    onSens(){
+      this.sens = !this.sens;
+
+      var url_specific_speed = "http://localhost:8000/specificorder";
+
+      var donnee = {data:"specificorder",lamporder:this.sens };
+
+    this.http.post(url_specific_speed, donnee, {responseType: 'text'})
+    .subscribe(
+      (data)  => {
+
+        console.log(data);
+
+          },
+      err => {
+        console.log("err : " + err.message);
+      }
+    )
+
+
+
+
+    }
+
+    onSpeed(){
+
+      var url_specific_speed = "http://localhost:8000/specificspeed";
+
+      var donnee = {data:"specificspeed",lampspeed:this.value };
+
+    this.http.post(url_specific_speed, donnee, {responseType: 'text'})
+    .subscribe(
+      (data)  => {
+
+        console.log(data);
+
+          },
+      err => {
+        console.log("err : " + err.message);
+      }
+    )
+
+
+
     }
   
 

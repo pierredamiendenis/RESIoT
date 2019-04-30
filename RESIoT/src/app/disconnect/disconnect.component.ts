@@ -16,7 +16,7 @@ export class DisconnectComponent implements OnInit {
   onStart(){
     //console.log("coucou");
     this.httpClient
-    .get<any[]>('http://localhost/disconnect')
+    .get<any[]>('http://localhost:8000/disconnect')
     .subscribe(
       (response) => {
         console.log(response);
