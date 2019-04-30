@@ -1,12 +1,21 @@
 import { Component, Inject } from '@angular/core';
 import {MatSliderModule} from '@angular/material/slider';
 import {coerceNumberProperty} from '@angular/cdk/coercion';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormsModule, NgForm, FormControl, FormGroupDirective, Validators } from '@angular/forms';
+import {ErrorStateMatcher} from '@angular/material/core';
 
 
 
 import 'hammerjs/hammer';
 import { HttpClient } from '@angular/common/http';
+
+/** Error when invalid control is dirty, touched, or submitted. */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 
 
@@ -18,6 +27,18 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AppComponent {
 
+
+  emailFormControl = new FormControl('', [
+    Validators.required,
+    Validators.email,
+  ]);
+
+  //'/^([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})[.]([0-9]{1,3})$/'
+
+  matcher = new MyErrorStateMatcher();
+
+
+
   constructor(private http: HttpClient){}
 
   show_connected = false;
@@ -27,6 +48,7 @@ export class AppComponent {
 
   sens = true;
 
+  ip: '';
   autoTicks = true;
   disabled = false;
   invert = false;
@@ -46,15 +68,15 @@ export class AppComponent {
   }
   private _tickInterval = 1;
 
-  
+
 
     onTest(){
 
       console.log(this.value)
-      
-     
-  
-  
+
+
+
+
     }
 
     onSens(){
@@ -108,3 +130,8 @@ export class AppComponent {
 
 
 
+
+
+
+
+}

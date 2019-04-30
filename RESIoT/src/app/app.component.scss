@@ -28,7 +28,7 @@
     height:15em; background-size:cover; width:auto;
     background-image:url('/../assets/img/tabf.jpeg');
     background-position:50% 50%;
-    
+
   }
 
   mat-slider {
@@ -38,29 +38,29 @@
   .example-h2 {
     margin: 10px;
   }
-  
+
   .example-section {
     display: flex;
     align-content: center;
     align-items: center;
     height: 60px;
   }
-  
+
   .example-margin {
     margin: 10px;
   }
-  
+
   .mat-slider-horizontal {
     width: 300px;
   }
-  
+
   .mat-slider-vertical {
     height: 300px;
   }
-  
+
   .text { color: #000000; }
-  
-  
+
+
 .changecursoron{
   cursor: pointer;
 }
@@ -69,39 +69,14 @@
   transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
 
+.ng-invalid  { border: 1px solid red; }
 
-
-
-
-
-
-
-
-body {
-  background-color: #FFF;
-  overflow: hidden;
-  text-align:center;
-   display: flex;
-   align-items: center;
-   justify-content: center; 
- }
- 
- body,
- html {
-  height: 100%;
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
   width: 100%;
-  margin: 0;
-  padding: 0;
- }
- 
- svg {
+}
+
+.example-full-width {
   width: 100%;
-  height: 100%;
-  visibility: hidden;
-  overflow: visible;
-  
- }
- 
- .smashingDots circle {
-  mix-blend-mode: multiply;
- }
+}

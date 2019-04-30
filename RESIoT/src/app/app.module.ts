@@ -3,11 +3,11 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule }    from '@angular/common/http';
 
 import {MatSliderModule} from '@angular/material/slider';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatCardModule} from '@angular/material/card';
-import {MatInputModule} from '@angular/material';
+import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 
 import {MatSnackBarModule} from '@angular/material/snack-bar';
@@ -81,7 +81,7 @@ import { DialogOverviewExampleComponent, DialogOverviewExampleDialog } from './d
     OrderChaseComponent,
     DisconnectComponent,
     LampeComponent,
-    FooterComponent,  
+    FooterComponent,
     ConnectionComponent,
     LoadingComponent,
     DialogOverviewExampleComponent,
@@ -89,7 +89,7 @@ import { DialogOverviewExampleComponent, DialogOverviewExampleDialog } from './d
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,   
+    HttpClientModule,
     MatSliderModule,
     FormsModule,
     MatFormFieldModule,
@@ -105,7 +105,7 @@ import { DialogOverviewExampleComponent, DialogOverviewExampleDialog } from './d
   providers: [
     SocketService
   ],
-  bootstrap: [AppComponent],  
+  bootstrap: [AppComponent],
   entryComponents: [DialogOverviewExampleComponent, DialogOverviewExampleDialog],
 
 
