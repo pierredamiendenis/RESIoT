@@ -62,15 +62,15 @@ export class AppComponent {
   }
   private _tickInterval = 1;
 
-  
+
 
     onTest(){
 
       console.log(this.value)
-      
-     
-  
-  
+
+
+
+
     }
 
     onSens(){
@@ -119,9 +119,11 @@ export class AppComponent {
 
     }
 
-    
-  
 
-  
+
+
+
+
+
 
 }

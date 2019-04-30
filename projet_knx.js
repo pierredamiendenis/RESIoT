@@ -21,6 +21,8 @@ app.get('/', function(req, res) {
 
 app.post('/specificlampe', function(req, res){
 
+  //console.log("conn",connection);
+
   console.log(req.body.numerolamp, " : " ,req.body.state);
 
   //var numero_lamp = req.body.numerolamp;
@@ -140,10 +142,8 @@ app.get('/disconnect', function(req, res) {
 app.get('/connect', function(req, res) {
       //console.log("connect get",connection)
 
-      connect();
-
-      console.log("ok");
-      res.send({state:"ok"});
+      connect(res);
+      //res.send({state:"ok"});
 
 });
 
@@ -174,7 +174,7 @@ server.listen(8000, function(){
 });
 
 
-  function connect(){
+  function connect(response){
 
      connection = new knx.Connection( {
         // ip address and port of the KNX router or interface
@@ -199,6 +199,7 @@ server.listen(8000, function(){
           connected: function() {
             //serverREST.API_serverEmit();
             console.log('Connected');
+            response.send({state:"ok"});
 
             // WRITE an arbitrary boolean request to a DPT1 group address
 
@@ -272,6 +273,8 @@ server.listen(8000, function(){
           // get notified on connection errors
           error: function(connstatus) {
             console.log("**** ERROR: %j", connstatus);
+            response.send({state:"error"});
+            console.log("zefbezbfjzebfyezvhfvhezvfevfhezvfh")
           }
         }
       });
