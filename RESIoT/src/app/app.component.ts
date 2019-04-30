@@ -41,23 +41,8 @@ export class AppComponent {
 
   onTest(){
 
-    var url = "http://localhost:8000/test";
+    console.log(this.value)
 
-    console.log("test")
-
-    var donnee = {data:"donnee",test:"test"};
-
-    this.http.post(url, donnee, {responseType: 'text'})
-    .subscribe(
-      (data)  => {
-
-        console.log(data);
-
-          },
-      err => {
-        console.log("err : " + err.message);
-      }
-    )
   }
 
 }
