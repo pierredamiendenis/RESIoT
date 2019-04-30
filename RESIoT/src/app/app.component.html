@@ -32,6 +32,48 @@
     <app-lampe></app-lampe>
 </div>
 
+<br>
+<br>
+
+<!-- <div>
+  <label class="center-block" for="customRange2">Selectionner vitesse</label>
+  <input type="range" class="custom-range" min="0" max="10" id="customRange2">
+  <h2></h2>
+</div> -->
+
+<div class="center-block">
+     
+      <mat-card class="result">
+        <mat-card-content>      
+          <mat-slider
+              class="example-margin"
+              [disabled]="disabled"
+              [invert]="invert"
+              [max]="max"
+              [min]="min"
+              [step]="step"
+              [thumbLabel]="thumbLabel"
+              [tickInterval]="tickInterval"
+              [(ngModel)]="value"
+              [vertical]="vertical">
+          </mat-slider>
+
+          <button mat-stroked-button (click)="onTest()">Speed (ms)</button>
+
+          <mat-form-field class="example-margin">
+              <input id="espace" matInput type="number" placeholder="Value" [(ngModel)]="value">
+            </mat-form-field>
+
+
+        </mat-card-content>
+      </mat-card>
+
+      
+
+</div>
+
+
+
 <div class="footer">
   <app-footer></app-footer>
 </div>

@@ -19,6 +19,24 @@ app.get('/', function(req, res) {
 
 });
 
+app.post('/changespeed', function(req, res){
+
+  console.log(req.body.speed);
+
+  var get_speed = req.body.speed;
+
+});
+
+app.post('/startandstopchenillard', function(req, res){
+
+  console.log(req.body);
+
+  res.send("blablabla")
+
+});
+
+
+
 app.get('/startandstopchenillard', function(req, res) {
     //res.send('test');
     //console.log("jesuisdansletest");
@@ -70,7 +88,7 @@ function emit_io (s){
 
 
 
-server.listen(80, function(){
+server.listen(8000, function(){
     console.log('listening on *:80');
 });
 
