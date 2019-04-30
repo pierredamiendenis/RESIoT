@@ -19,22 +19,24 @@ app.get('/', function(req, res) {
 
 });
 
-app.post('/changespeed', function(req, res){
+app.post('/specificlampe', function(req, res){
 
-  console.log(req.body.speed);
+  console.log(req.body.numerolamp, " : " ,req.body.state);
 
-  var get_speed = req.body.speed;
+  //var numero_lamp = req.body.numerolamp;
 
-});
-
-app.post('/startandstopchenillard', function(req, res){
-
-  console.log(req.body);
-
-  res.send("blablabla")
+  change_specific_lamp(req.body.numerolamp, req.body.state);
 
 });
 
+
+app.post('/specificspeed', function(req, res){
+
+  console.log(req.body.lampspeed);
+
+  change_specific_speed(req.body.lampspeed);
+
+});
 
 
 app.get('/startandstopchenillard', function(req, res) {
@@ -61,9 +63,12 @@ app.get('/disconnect', function(req, res) {
 });
 
 app.get('/connect', function(req, res) {
-    connect();
-    //res.sendStatus(200);
-    res.send("done");
+    
+      connect();
+
+      console.log("ok");
+      res.send({state:"ok"});
+
 });
 
 
@@ -306,17 +311,45 @@ server.listen(8000, function(){
 
   function change_order(){
 
-    if(chenillard_order=="endroit"){
-      chenillard_order="envers";
+    if(connection == null){
+
     } else {
-      chenillard_order="endroit";
+
+      if(chenillard_order=="endroit"){
+        chenillard_order="envers";
+      } else {
+        chenillard_order="endroit";
+      }
+
+    }
+
+  }
+
+  function change_specific_order(specific_order){
+    if(connection == null){
+
+    } else {
+
+      chenillard_order == specific_order;
+
     }
   }
 
   function disconnect(){
-    stop_chenillard();
-    connection.Disconnect();
-    connection = null;
+
+    if(connection == null){
+
+      console.log("veuillez vous connecter")
+
+    } else {
+
+      stop_chenillard();
+      connection.Disconnect();
+      connection = null;
+
+    }
+
+
 
   }
 
@@ -326,23 +359,65 @@ server.listen(8000, function(){
 
   function changespeed(){
 
-    return new Promise((resolve,reject) => {
+    if(connection == null){
+      console.log("veuillez vous connecter")
+    } else {
 
-      //console.log("indice speed : " + indice_tabspeed);
+      return new Promise((resolve,reject) => {
 
-      speed = tabspeed[indice_tabspeed];
+        //console.log("indice speed : " + indice_tabspeed);
+  
+        speed = tabspeed[indice_tabspeed];
+  
+        if(indice_tabspeed==3){
+          indice_tabspeed=0;
+        }else{
+          indice_tabspeed++;
+        }
+  
+        stop_chenillard();
+  
+        resolve(speed);
+  
+      });
 
-      if(indice_tabspeed==3){
-        indice_tabspeed=0;
-      }else{
-        indice_tabspeed++;
-      }
+    }
+
+
+
+  }
+
+  function change_specific_speed(speed_lamp){
+
+    if(connection == null){
+
+      console.log("veuillez vous connecter")
+
+    } else {
 
       stop_chenillard();
+      start_chenillard(speed_lamp);
 
-      resolve(speed);
+    }
 
-    });
+
+
+  }
+
+
+
+  function change_specific_lamp(id, state_lamp) {
+
+    if(connection == null){
+
+      console.log("veuillez vous connecter")
+
+    } else {
+
+      connection.write("0/1/"+id, state_lamp );
+
+    }
+
 
   }
 
