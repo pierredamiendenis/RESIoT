@@ -19,12 +19,6 @@
       <app-start-chase></app-start-chase>
     </div>
     <div class="col-sm center-block">
-      <app-speed-chase></app-speed-chase>
-    </div>
-    <div class="col-sm center-block">
-      <app-order-chase></app-order-chase>
-    </div>
-    <div class="col-sm center-block">
       <app-disconnect></app-disconnect>
     </div>
   </div>
@@ -85,20 +79,20 @@
             <mat-card-content>
 
               <div>
-                  <img class="changecursoron zoom" style="width: 100%; width: 60px; height: 60px"  src = "/../assets/img/left_on.png" *ngIf="sens == true" (click)="onSens()">
-                  <img class="changecursoron" style="width: 100%; width: 60px; height: 60px"  src = "/../assets/img/left_off.png" *ngIf="sens == false">
+                  <img class="changecursoron zoom" style="width: 100%; width: 60px; height: 60px"  src = "/../assets/img/left_on.png" *ngIf="sens == false" (click)="onSens()">
+                  <img class="changecursoron" style="width: 100%; width: 60px; height: 60px"  src = "/../assets/img/left_off.png" *ngIf="sens == true">
 
 
-                  <img class="changecursoron zoom" style="width: 100%; width: 60px; height: 60px"  src = "/../assets/img/right_on.png" *ngIf="sens == false" (click)="onSens()">
-                  <img class="changecursoron" style="width: 100%; width: 60px; height: 60px"  src = "/../assets/img/right_off.png" *ngIf="sens == true">
+                  <img class="changecursoron zoom" style="width: 100%; width: 60px; height: 60px"  src = "/../assets/img/right_on.png" *ngIf="sens == true" (click)="onSens()">
+                  <img class="changecursoron" style="width: 100%; width: 60px; height: 60px"  src = "/../assets/img/right_off.png" *ngIf="sens == false">
 
-              </div>
-
-              <div *ngIf="sens == true">
-                A l'endroit
               </div>
 
               <div *ngIf="sens == false">
+                A l'endroit
+              </div>
+
+              <div *ngIf="sens == true">
                   A l'envers
                 </div>
 
