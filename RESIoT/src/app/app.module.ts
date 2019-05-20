@@ -94,7 +94,7 @@ import {IpAddressComponent} from './ip-address/ip-address.component';
     LoadingComponent,
     DialogOverviewExampleComponent,
     DialogOverviewExampleDialog,
-    IpAddressComponent
+    IpAddressComponent,
   ],
   imports: [
     BrowserModule,
