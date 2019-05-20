@@ -109,6 +109,7 @@ export class AppComponent {
       var url_specific_speed = "http://localhost:8000/specificspeed";
 
       var donnee = {data:"specificspeed",lampspeed:this.value };
+      console.log(donnee)
 
     this.http.post(url_specific_speed, donnee, {responseType: 'text'})
     .subscribe(
@@ -129,9 +130,3 @@ export class AppComponent {
 }
 
 
-
-
-
-
-
-}
