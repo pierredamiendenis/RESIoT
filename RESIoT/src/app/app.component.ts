@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import {MatSliderModule} from '@angular/material/slider';
 import {coerceNumberProperty} from '@angular/cdk/coercion';
 import { FormsModule, NgForm, FormControl, FormGroupDirective, Validators } from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
+
+
 
 import 'hammerjs/hammer';
 import { HttpClient } from '@angular/common/http';
@@ -14,6 +16,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
+
+
 
 
 @Component({
@@ -36,6 +40,8 @@ export class AppComponent {
 
 
   constructor(private http: HttpClient){}
+
+  show_connected = false;
 
 
   title = 'RESIoT';
@@ -74,7 +80,6 @@ export class AppComponent {
     }
 
     onSens(){
-      this.sens = !this.sens;
 
       var url_specific_speed = "http://localhost:8000/specificorder";
 
@@ -85,6 +90,8 @@ export class AppComponent {
       (data)  => {
 
         console.log(data);
+        this.sens = !this.sens;
+
 
           },
       err => {
@@ -102,6 +109,7 @@ export class AppComponent {
       var url_specific_speed = "http://localhost:8000/specificspeed";
 
       var donnee = {data:"specificspeed",lampspeed:this.value };
+      console.log(donnee)
 
     this.http.post(url_specific_speed, donnee, {responseType: 'text'})
     .subscribe(
@@ -119,11 +127,6 @@ export class AppComponent {
 
     }
 
-
-
-
-
-
-
-
 }
+
+

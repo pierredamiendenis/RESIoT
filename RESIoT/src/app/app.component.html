@@ -2,17 +2,19 @@
 
 <div class="image">
 
-  
+
   <div class="center-block>">
       <app-ip-address></app-ip-address>
   </div>
-  
-     
+
+
 <div class=" center-block">
   <app-connection></app-connection>
 </div>
 
 </div>
+
+<!-- <app-dialog-overview-example></app-dialog-overview-example> -->
 
 
 
@@ -33,7 +35,7 @@
   </div>
 </div>
 
-<div class="container mt center-block">    
+<div class="container mt center-block">
     <app-lampe></app-lampe>
 </div>
 
@@ -50,9 +52,9 @@
     <div class="col-sm center-block">
 
         <div class="center-block">
-     
+
             <mat-card class="result" style="height: 100px;">
-              <mat-card-content>      
+              <mat-card-content>
                 <mat-slider
                     class="example-margin"
                     [disabled]="disabled"
@@ -65,19 +67,19 @@
                     [(ngModel)]="value"
                     [vertical]="vertical">
                 </mat-slider>
-      
+
                 <button mat-stroked-button (click)="onSpeed()">Speed</button>
-                
+
                   <p class="text" style="font-weight:bold">
                    Value : {{value}} ms
                   </p>
-                         
-      
+
+
               </mat-card-content>
             </mat-card>
-      
-            
-      
+
+
+
       </div>
 
 
@@ -85,13 +87,13 @@
 
     <div class="col-sm center-block">
         <mat-card class="result" style="height: 100px;">
-            <mat-card-content> 
-              
+            <mat-card-content>
+
               <div>
                   <img class="changecursoron zoom" style="width: 100%; width: 60px; height: 60px"  src = "/../assets/img/left_on.png" *ngIf="sens == true" (click)="onSens()">
                   <img class="changecursoron" style="width: 100%; width: 60px; height: 60px"  src = "/../assets/img/left_off.png" *ngIf="sens == false">
-    
-    
+
+
                   <img class="changecursoron zoom" style="width: 100%; width: 60px; height: 60px"  src = "/../assets/img/right_on.png" *ngIf="sens == false" (click)="onSens()">
                   <img class="changecursoron" style="width: 100%; width: 60px; height: 60px"  src = "/../assets/img/right_off.png" *ngIf="sens == true">
 
@@ -105,9 +107,9 @@
                   A l'envers
                 </div>
 
-              
 
-  
+
+
 
 
         <br>
@@ -133,7 +135,3 @@
 <div class="footer">
   <app-footer></app-footer>
 </div>
-
-
-
-
