@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ServicemaquetteService } from '../services/servicemaquette.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-connection',
@@ -12,7 +13,15 @@ export class ConnectionComponent implements OnInit {
   isConnected = false;
   isLoading = false;
 
-  constructor(private httpClient: HttpClient, private serviceMaquette: ServicemaquetteService) { }
+  subscription : Subscription;
+
+  constructor(private httpClient: HttpClient, private serviceMaquette: ServicemaquetteService) { 
+
+    this.subscription = this.serviceMaquette.getConnection().subscribe(data=>{
+      this.isConnected = data;
+    });
+    
+  }
 
   ngOnInit() {
 
@@ -34,7 +43,6 @@ export class ConnectionComponent implements OnInit {
         console.log(response);
         this.isLoading = false;
         this.isConnected = true;
-        this.serviceMaquette.onChangeConnection(true);
 
       },
       (error) => {

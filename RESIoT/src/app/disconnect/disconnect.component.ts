@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ServicemaquetteService } from '../services/servicemaquette.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-disconnect',
@@ -9,7 +10,8 @@ import { ServicemaquetteService } from '../services/servicemaquette.service';
 })
 export class DisconnectComponent implements OnInit {
 
-  constructor(private httpClient: HttpClient, private serviceMaquette: ServicemaquetteService) { }
+  constructor(private httpClient: HttpClient, private serviceMaquette: ServicemaquetteService) { 
+   }
 
   ngOnInit() {
   }
@@ -21,8 +23,7 @@ export class DisconnectComponent implements OnInit {
     .subscribe(
       (response) => {
         console.log(response);
-
-        this.serviceMaquette.onChangeConnection(false);
+        this.serviceMaquette.setConnection(false);
         
       },
       (error) => {
