@@ -55,7 +55,7 @@ import {
   MatToolbarModule,
   MatTooltipModule,
   MatTreeModule,
-  
+
 } from '@angular/material';
 
 
@@ -115,8 +115,8 @@ import {IpAddressComponent} from './ip-address/ip-address.component';
     ReactiveFormsModule,
     FormsModule
 
-   
-    
+
+
 
   ],
   providers: [

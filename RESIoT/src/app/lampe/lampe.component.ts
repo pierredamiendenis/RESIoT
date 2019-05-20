@@ -141,9 +141,9 @@ export class LampeComponent implements OnInit {
     console.log(id, etat);
 
     if(etat==true){
-      var etat_numero = 1;
-    } else {
       var etat_numero = 0;
+    } else {
+      var etat_numero = 1;
     }
 
 
