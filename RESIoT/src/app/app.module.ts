@@ -24,6 +24,8 @@ import {CdkStepperModule} from '@angular/cdk/stepper';
 import {CdkTableModule} from '@angular/cdk/table';
 import {CdkTreeModule} from '@angular/cdk/tree';
 
+
+
 import {
   MatAutocompleteModule,
   MatBadgeModule,
@@ -53,6 +55,7 @@ import {
   MatToolbarModule,
   MatTooltipModule,
   MatTreeModule,
+  
 } from '@angular/material';
 
 
@@ -70,6 +73,11 @@ import { ConnectionComponent } from './connection/connection.component';
 import { LoadingComponent } from './loading/loading.component';
 import { SocketService } from './services/socket.service';
 import { DialogOverviewExampleComponent, DialogOverviewExampleDialog } from './dialog-overview-example/dialog-overview-example.component';
+import { FlexLayoutModule } from "@angular/flex-layout";
+import {IpAddressComponent} from './ip-address/ip-address.component';
+
+
+
 
 @NgModule({
   declarations: [
@@ -85,7 +93,8 @@ import { DialogOverviewExampleComponent, DialogOverviewExampleDialog } from './d
     ConnectionComponent,
     LoadingComponent,
     DialogOverviewExampleComponent,
-    DialogOverviewExampleDialog
+    DialogOverviewExampleDialog,
+    IpAddressComponent
   ],
   imports: [
     BrowserModule,
@@ -99,7 +108,15 @@ import { DialogOverviewExampleComponent, DialogOverviewExampleDialog } from './d
     BrowserAnimationsModule,
     MatButtonModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    FlexLayoutModule,
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FormsModule
+
+   
+    
 
   ],
   providers: [
