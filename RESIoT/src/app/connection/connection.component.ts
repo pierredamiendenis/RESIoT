@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ServicemaquetteService } from '../services/servicemaquette.service';
 
 @Component({
   selector: 'app-connection',
@@ -11,7 +12,7 @@ export class ConnectionComponent implements OnInit {
   isConnected = false;
   isLoading = false;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private serviceMaquette: ServicemaquetteService) { }
 
   ngOnInit() {
 
@@ -33,6 +34,7 @@ export class ConnectionComponent implements OnInit {
         console.log(response);
         this.isLoading = false;
         this.isConnected = true;
+        this.serviceMaquette.onChangeConnection(true);
 
       },
       (error) => {

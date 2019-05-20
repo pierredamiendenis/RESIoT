@@ -46,7 +46,7 @@ export class AppComponent {
 
   title = 'RESIoT';
 
-  sens = true;
+  sens = false;
 
   ip: '';
   autoTicks = true;
@@ -84,6 +84,8 @@ export class AppComponent {
       var url_specific_speed = "http://localhost:8000/specificorder";
 
       var donnee = {data:"specificorder",lamporder:this.sens };
+
+      console.log(donnee)
 
     this.http.post(url_specific_speed, donnee, {responseType: 'text'})
     .subscribe(
