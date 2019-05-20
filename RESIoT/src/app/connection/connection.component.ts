@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ServicemaquetteService } from '../services/servicemaquette.service';
 import { Subscription } from 'rxjs';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MyErrorStateMatcher } from '../ip-address/ip-address.component';
 
 @Component({
   selector: 'app-connection',
@@ -15,7 +17,7 @@ export class ConnectionComponent implements OnInit {
 
   subscription : Subscription;
 
-  constructor(private httpClient: HttpClient, private serviceMaquette: ServicemaquetteService) { 
+  constructor(private httpClient: HttpClient, private serviceMaquette: ServicemaquetteService, private _formBuilder : FormBuilder) { 
 
     this.subscription = this.serviceMaquette.getConnection().subscribe(data=>{
       this.isConnected = data;
@@ -23,35 +25,54 @@ export class ConnectionComponent implements OnInit {
     
   }
 
-  ngOnInit() {
+  knxGroup : FormGroup;
 
+  ngOnInit(){
+    this.knxGroup = this._formBuilder.group({
+      inputIpKnxControl: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(7),
+          Validators.maxLength(15),
+          Validators.pattern(/\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/)
+        ])
+      ],
+
+    });
   }
   
 
-  onStart(){
+ 
+
+  matcher = new MyErrorStateMatcher();
+
+
+  onStart(str){
     //console.log("coucou");
 
     //const h = new HttpHeaders({responseType: 'text', 'Accept': 'text/html, application/xhtml+xml, */*', 'Content-Type': 'application/x-www-form-urlencoded'});
 
 
     this.isLoading = true;
-    this.httpClient
-    .get('http://localhost:8000/connect')
+
+    var donnee = {ip:str};
+
+    this.httpClient.post('http://localhost:8000/connect', donnee, {responseType: 'text'})
     .subscribe(
-      (response) => {
-        //this.onTest();
-        console.log(response);
+      (data)  => {
+
+        console.log(data);
         this.isLoading = false;
         this.isConnected = true;
-
-      },
-      (error) => {
-        console.log('Erreur ! : ' + error);
-        console.log(JSON.stringify(error));
+          },
+      err => {
+        console.log('Erreur ! : ' + err);
+        console.log(JSON.stringify(err));
         this.isConnected = false;
-        this.isLoading = false;
+        this.isLoading = false;      
       }
-    );
+    )
 
   }
 
@@ -76,5 +97,7 @@ export class ConnectionComponent implements OnInit {
   setOffConnected(){
     this.isConnected = false;
   }
+
+  
 
 }

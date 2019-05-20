@@ -1,5 +1,30 @@
+<div class="div container">
+        <mat-card class="back opacity">
+      
+      
+      
+          <form [formGroup]="knxGroup">
+            <div fxLayout="row" fxLayout.lt-sm="column">
+      
+              <div fxFlex="25">
+                <p>Enter IP Address</p>
+              </div>
+      
+              <div fxFlex.gt-sm="100" fxFlex="25">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="X.X.X.X" [(ngModel)]="inputIpKnx" formControlName="inputIpKnxControl" required>
+                </mat-form-field>
+              </div>
+      
+              
+            </div>
+            
+          </form>
+        </mat-card>
+      </div>
+
 <div>
-    <button type="button" class="btn btn-dark mt" (click)="onStart()" *ngIf="isConnected == false">Click to Connect</button>
+    <button type="button" class="btn btn-dark mt" (click)="onStart(inputIpKnx)" *ngIf="isConnected == false" [disabled]="knxGroup.invalid" >Click to Connect</button>
     <button type="button" class="btn btn-success mt" *ngIf="isConnected == true">Connected</button>
 
 </div>
