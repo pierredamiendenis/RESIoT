@@ -43,7 +43,7 @@ app.post('/specificspeed', function(req, res){
   if(connection == undefined){
     res.send({state:"error"})
   } else {
-    console.log(req.body.lampspeed);
+    console.log("specific speed",req.body.lampspeed);
 
     change_specific_speed(req.body.lampspeed);
     res.send({state:"success"})
@@ -56,7 +56,8 @@ app.post('/specificorder', function(req, res){
   if(connection == undefined){
     res.send({state:"error"})
   } else {
-    console.log(req.body.lamporder);
+
+    console.log("lebody",req.body.lamporder);
 
     if(req.body.lamporder == true){
 
@@ -70,6 +71,7 @@ app.post('/specificorder', function(req, res){
     }
 
     change_specific_order(sensspecific);
+    //console.log("sens",sensspecific);
     res.send({state:"success"})
   }
 
@@ -80,7 +82,7 @@ app.get('/startandstopchenillard', function(req, res) {
     //res.send('test');
     //console.log("jesuisdansletest");
     //console.log("startabdstop",connection)
-    
+
     if(connection == undefined){
       res.send({state:"error"})
     } else {
@@ -139,10 +141,14 @@ app.get('/disconnect', function(req, res) {
 
 });
 
-app.get('/connect', function(req, res) {
+app.post('/connect', function(req, res) {
       //console.log("connect get",connection)
 
-      connect(res);
+      console.log("ip",req.body.ip);
+
+      connect(res,req.body.ip.toString());
+      res.send({state:"success"})
+
       //res.send({state:"ok"});
 
 });
@@ -174,11 +180,13 @@ server.listen(8000, function(){
 });
 
 
-  function connect(response){
+  function connect(response, ip){
+
+    console.log(ip)
 
      connection = new knx.Connection( {
         // ip address and port of the KNX router or interface
-        ipAddr: '192.168.1.10', ipPort: 3671,
+        ipAddr: ip, ipPort: 3671,
         // in case you need to specify the multicast interface (say if you have more than one)
         //interface: 'eth0',
         // the KNX physical address we'd like to use
@@ -212,7 +220,7 @@ server.listen(8000, function(){
           // get notified for all KNX events:
           event: function(evt, src, dest, value) {
             var d = new Date();
-            //console.log(d + " || event: %s, src: %j, dest: %j, value: %j", evt, src, dest, value);
+            console.log(d + " || event: %s, src: %j, dest: %j, value: %j", evt, src, dest, value);
             //console.log(JSON.stringify(value));
             //console.log(Array.isArray[JSON.parse(JSON.stringify(value)).data]);
             //console.log(typeof(JSON.parse(JSON.stringify(value)).data));
@@ -244,7 +252,8 @@ server.listen(8000, function(){
               //console.log("run chenillard" + chenillard_run)
 
               if(chenillard_run == false){
-                start_chenillard();
+                console.log(speed);
+                start_chenillard(speed);
               } else {
                 stop_chenillard();
               }
@@ -287,17 +296,25 @@ server.listen(8000, function(){
 
   function start_and_stop(){
     console.log("chenillard run :",chenillard_run);
-    if(chenillard_run == false){
-        start_chenillard(speed);
-      } else {
-        stop_chenillard();
-      }
+
+    if(connection==undefined){
+
+      console.log("veuillez vous connecter");      
+
+    } else {
+
+      if(chenillard_run == false){
+          start_chenillard(speed);
+        } else {
+          stop_chenillard();
+        }
+
+    }
   }
 
+  var current_speed;
+
   function start_chenillard (sp){
-
-
-    console.log("speed : " + sp);
 
 
     if(indice_chenillard==undefined){
@@ -306,7 +323,7 @@ server.listen(8000, function(){
 
     if(sp==undefined){
         sp=1200;
-        console.log("speed modified : " + sp);
+        //console.log("speed modified : " + sp);
         speed = 1200;
         indice_tabspeed = 1;
 
@@ -315,11 +332,9 @@ server.listen(8000, function(){
       if(chenillard_run==false){
 
         chenillard_run = true;
+        speed = sp;
 
         intervalle = setInterval(() => {
-
-            console.log("1");
-
 
           switch(indice_chenillard){
             case 1:
@@ -408,23 +423,38 @@ server.listen(8000, function(){
   }
 
   function change_specific_order(specific_order){
+
     if(connection == undefined){
 
 
 
     } else {
 
+      if(specific_order==true){
+
+        chenillard_order = "endroit";
+
+      } else {
+
+        chenillard_order = "envers";
+
+      }
+
       chenillard_order == specific_order;
 
     }
+
+    console.log("order", chenillard_order)
+
   }
 
   function disconnect(){
 
     if(connection == undefined){
 
-      console.log("veuillez vous connecter")
+      console.log("veuillez vous connecter");
 
+      emit_io("stop");
 
     } else {
 
@@ -452,19 +482,19 @@ server.listen(8000, function(){
       return new Promise((resolve,reject) => {
 
         //console.log("indice speed : " + indice_tabspeed);
-  
+
         speed = tabspeed[indice_tabspeed];
-  
+
         if(indice_tabspeed==3){
           indice_tabspeed=0;
         }else{
           indice_tabspeed++;
         }
-  
+
         stop_chenillard();
-  
+
         resolve(speed);
-  
+
       });
 
     }
@@ -481,8 +511,11 @@ server.listen(8000, function(){
 
     } else {
 
-      stop_chenillard();
-      start_chenillard(speed_lamp);
+      stopAll().then(()=>{
+        start_chenillard(speed_lamp);
+        speed = speed_lamp;
+        console.log("jesuisdanslespeed",speed_lamp);
+      });
 
     }
 
@@ -503,6 +536,24 @@ server.listen(8000, function(){
       connection.write("0/1/"+id, state_lamp );
 
     }
+
+
+  }
+
+  function stopAll(){
+
+
+
+    return new Promise((resolve,reject) => {
+
+      clearInterval(intervalle);
+      chenillard_run = false;
+
+      resolve();
+
+    });
+
+
 
 
   }
